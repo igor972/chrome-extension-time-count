@@ -1,8 +1,10 @@
 chrome.runtime.onMessage.addListener(getMessage);
 
+let before_div_style = {
+  background_color: ''
+}
+
 function getMessage(message, sender, sendResponse) {
-  console.log('estou no Content.js');
-  console.log(message)
   if(message === 'clicked') {
     let selected = window.getSelection().toString();
     let regexp = /([0-9]{1,2}:[0-9]{2})/g
@@ -13,31 +15,48 @@ function getMessage(message, sender, sendResponse) {
   }
 
   if(message === 'select') {
-
-    let before_div_style = {
-      background_color: ''
-    }
-
     let elem = document.querySelector('body');
 
-    elem.addEventListener('mouseover', e => {        
-      before_div_style.background_color = e.target.style.backgroundColor;
+    elem.addEventListener('mouseover', addColorBackground)
 
+    elem.addEventListener('mouseout', returnNormalBackground)
 
-      e.target.style.backgroundColor = 'rgba(155, 205, 0, 0.7)';
-    })
-    elem.addEventListener('mouseout', e => {
-      e.target.style.backgroundColor = before_div_style.background_color;
-    })
-    elem.addEventListener('click', e => {
-      let selected = e.target.innerText;
-      let regexp = /([0-9]{1,2}:[0-9]{1,2}:[0-9]{2}|[0-9]{1,2}:[0-9]{2})/g
-      let times = getMatches(selected, regexp);
-
-      // Print the result on Console
-      console.log(sumTimes(times));
-    })
+    elem.addEventListener('click', showResult);
   }
+}
+
+function addColorBackground(e){
+  before_div_style.background_color = e.target.style.backgroundColor;
+  e.target.style.backgroundColor = 'rgba(155, 205, 0, 0.7)';
+}
+
+function returnNormalBackground(e) {
+  e.target.style.backgroundColor = before_div_style.background_color;
+}
+
+function showResult(e) {
+  let text = e.target.innerText;
+  let times = filterTimeFromText(text)
+
+  printResult(sumTimes(times));
+
+  removeEvents(e);
+}
+
+function printResult(result) {
+  console.log(result);
+}
+
+function removeEvents(elem) {
+  elem.currentTarget.removeEventListener('mouseover', addColorBackground);
+  elem.currentTarget.removeEventListener('mouseout', returnNormalBackground);
+  elem.currentTarget.removeEventListener('click', showResult);
+  returnNormalBackground(elem);
+}
+
+function filterTimeFromText(text){
+  let regexp = /([0-9]{1,2}:[0-9]{1,2}:[0-9]{2}|[0-9]{1,2}:[0-9]{2})/g
+  return getMatches(text, regexp);
 }
 
 function getMatches(string, regex, index) {
