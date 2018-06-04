@@ -1,10 +1,12 @@
-document.getElementById('select-session').addEventListener('click', selectClicked);
+document.getElementById('select').addEventListener('click', clicked);
+document.getElementById('highlight').addEventListener('click', clicked);
 
-function selectClicked() {
-  chrome.tabs.query({active: true, currentWindow: true}, getTabs);
-}
+function clicked(e) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+    let tab_id = tabs[0].id
+    let message = e.target.id;
 
-function getTabs(tabs) {
-  let tab = tabs[0];
-  chrome.tabs.sendMessage(tab.id, 'select')
+    // send message to content.js file
+    chrome.tabs.sendMessage(tab_id, message);
+  });
 }
