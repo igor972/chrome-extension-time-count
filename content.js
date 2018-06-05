@@ -49,5 +49,39 @@ function removeEvents(elem) {
 }
 
 function printResult(result) {
+  
+
+  let div = document.createElement('div');
+  div.className = 'popup-result';
+  div.style.width = 'auto';
+  div.style.height = 'auto';
+  div.style.padding = '10px';
+
+  div.style.border = 'solid';
+  div.style.borderColor = 'rgba(164, 66, 0, 0.6)';
+  div.style.borderWidth = '2px';
+  div.style.backgroundColor = 'rgba(255, 173, 5, 0.6)';
+  div.style.color = 'rgba(105, 20, 14, 0.9)';
+  div.style.fontSize = '40px';
+  div.style.fontFamily = 'monospace';
+
+  div.style.position = 'fixed';
+  div.style.top = '30px';
+  div.style.left = '50%';
+  div.textContent = result;
+
+  let body = document.querySelector('body');
+  body.appendChild(div)
+
+  setTimeout(function(){
+    div.remove();
+  }, 5000)
+
   console.log(result);
 }
+
+
+
+
+
+
