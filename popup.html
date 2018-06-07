@@ -3,26 +3,35 @@
   <head>
     <style type="text/css">
       body {
-        min-width: 250px;
-        background-color: #EBD2B4  
+        background-color: rgba(242, 244, 243, 0.8);
+        font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+        font-size: 13px;
+        padding: 0;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .menu {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
       }
       .menu-item {
-        font-size: 15px;
-        text-decoration: none;
-        color: #40434E;
+        padding: 5px;
+        color: rgb(10, 9, 8);
       }
-
-      a:hover {
-        background-color: #ACECF7;
+      .menu-item:hover {
+        color: rgb(94, 106, 112);
+        cursor: pointer;
+        background-color: rgb(234, 236, 237);
       }
-
     </style>
   </head>
   <body>
-    <div class="menu">
-      <p><a href="#" class="menu-item" id="select">Select section on the page</a></p>
-      <p><a href="#" class="menu-item" id="highlight">Highlight text</a></p>
-    </div>
+    <ul class="menu">
+      <li class="menu-item" id="select">Hover on the page</li>
+      <li class="menu-item" id="highlight">Highlighted text</li>
+      <li><hr/></li>
+      <li class="menu-item">About</li>
     </ul>
     <script type="text/javascript" src='popup.js'></script>
   </body>
